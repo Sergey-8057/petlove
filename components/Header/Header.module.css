@@ -1,0 +1,17 @@
+.header {
+  background: #f6b83d;
+}
+
+.logo {
+  display: flex;
+  align-items: flex-end;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.iconHeart {
+  fill:#fff;
+}
