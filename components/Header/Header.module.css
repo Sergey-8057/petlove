@@ -1,5 +1,18 @@
+.container {
+  max-width: 1280px;
+  width: 100%;
+  padding: 16px 32px 0;
+  margin: 0 auto;
+}
+
 .header {
-  background: #f6b83d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6b83d;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  padding: 16px 64px 112px;
 }
 
 .logo {
@@ -13,5 +26,90 @@
 }
 
 .iconHeart {
-  fill:#fff;
+  fill: #fff;
+}
+
+.navigation {
+  display: flex;
+  gap: 110px;
+}
+
+.listNavigation {
+  display: flex;
+  gap: 10px;
+}
+
+.navLink {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.03em;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 30px;
+  padding: 14px 19px;
+  transition:
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: #f6b83d;
+  background-color: #fff4df;
+}
+
+.listAuth {
+  display: flex;
+  gap: 8px;
+}
+
+.linkLogin {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 30px;
+  padding: 14px 35px;
+  transition:
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.linkLogin:hover,
+.linkLogin:focus {
+  color: #f6b83d;
+  background-color: #fff4df;
+}
+
+.linkRegistr {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f6b83d;
+  border-radius: 30px;
+  padding: 15px 20px;
+  background-color: #fff4df;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.linkRegistr:hover,
+.linkRegistr:focus {
+  background-color: #fbe7c1;
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
 }
