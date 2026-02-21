@@ -1,6 +1,6 @@
 'use client';
 
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
@@ -9,6 +9,28 @@ import css from './Header.module.css';
 
 const Header = () => {
   const pathname = usePathname();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(prev => !prev);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <section className={css.container}>
@@ -55,9 +77,9 @@ const Header = () => {
                 Our friends
               </Link>
             </li>
-
-            {/* Auth */}
           </ul>
+
+          {/* Auth */}
           <div className={css.listAuth}>
             <Link href="/login" className={css.linkLogin}>
               Log In
@@ -67,7 +89,71 @@ const Header = () => {
             </Link>
           </div>
         </nav>
+
+        <button
+          type="button"
+          onClick={toggleMenu}
+          className={css.menuButton}
+          aria-label="Open menu"
+        >
+          <svg className={css.iconMenu} width="32" height="32">
+            <use href="/symbol-defs.svg#icon-menu" />
+          </svg>
+        </button>
       </header>
+
+      {/* Overlay */}
+      <div
+        className={clsx(css.overlay, {
+          [css.overlayOpen]: isOpen,
+        })}
+        onClick={closeMenu}
+      />
+
+      {/* === Mobile/Tablet menu === */}
+      <div
+        className={clsx(css.mobileMenu, {
+          [css.mobileMenuOpen]: isOpen,
+        })}
+      >
+        <button type="button" onClick={toggleMenu} className={css.closeButton}>
+          <svg className={css.iconClose} width="32" height="32">
+            <use href="/symbol-defs.svg#icon-close" />
+          </svg>
+        </button>
+
+        <div className={css.mobileList}>
+          <ul className={css.mobileNav}>
+            <li className={css.mobileNavItem}>
+              <Link href="/news" onClick={toggleMenu}>
+                News
+              </Link>
+            </li>
+            <li className={css.mobileNavItem}>
+              <Link href="/notices" onClick={toggleMenu}>
+                Find pet
+              </Link>
+            </li>
+            <li className={css.mobileNavItem}>
+              <Link href="/friends" onClick={toggleMenu}>
+                Our friends
+              </Link>
+            </li>
+          </ul>
+          <ul className={css.mobileAuth}>
+            <li className={css.mobileAuthLogin}>
+              <Link href="/login" onClick={toggleMenu}>
+                Log In
+              </Link>
+            </li>
+            <li className={css.mobileAuthRegistr}>
+              <Link href="/registr" onClick={toggleMenu}>
+                Registration
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
   );
 };
