@@ -9,10 +9,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f6b83d;
+}
+
+.headerHome {
+  background-color: var(--orange);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   padding: 18px 20px 60px;
+}
+
+.headerOther {
+  background-color: var(--white);
+  padding: 14px 0 60px;
 }
 
 .logo {
@@ -22,13 +30,27 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: -0.04em;
+}
+
+.logoHome {
   color: #fff;
+}
+
+.logoOther {
+  color: var(--main);
 }
 
 .iconHeart {
   width: 17px;
   height: 17px;
+}
+
+.iconHeartHome {
   fill: #fff;
+}
+
+.iconHeartOther {
+  fill: var(--orange);
 }
 
 .navigation {
@@ -38,7 +60,14 @@
 .iconMenu {
   width: 32px;
   height: 32px;
-  stroke: #fff;
+}
+
+.iconMenuHome {
+  stroke: var(--white);
+}
+
+.iconMenuOther {
+  stroke: var(--main);
 }
 
 .menuButton {
@@ -70,13 +99,20 @@
   right: -100%;
   width: 218px;
   height: 100vh;
-  background-color: var(--white);
   padding: 28px 20px 40px;
   transition: right 300ms ease;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 176px;
+}
+
+.mobileMenuHome {
+  background-color: var(--white);
+}
+
+.mobileMenuOther {
+  background-color: var(--orange);
 }
 
 .mobileMenuOpen {
@@ -95,6 +131,14 @@
   width: 32px;
   height: 32px;
   fill: var(--main);
+}
+
+.iconCloseHome {
+  fill: var(--main);
+}
+
+.iconCloseOther {
+  fill: var(--white);
 }
 
 .mobileList {
@@ -129,7 +173,30 @@
 
 .mobileNavItem:hover,
 .mobileNavItem:focus {
-  border-color: #f6b83d;
+  border-color: var(--orange);
+}
+
+.mobileNavItemHome {
+  color: var(--main);
+}
+
+.mobileNavItemOther {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileNavItemOther:hover,
+.mobileNavItemOther:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.mobileNavItemHome.mobileNavItemIsActive {
+  border-color: var(--orange);
+}
+
+.mobileNavItemOther.mobileNavItemIsActive {
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .mobileAuth {
@@ -148,7 +215,7 @@
   letter-spacing: -0.03em;
   text-transform: uppercase;
   color: #fff;
-  background: #f6b83d;
+  background: var(--orange);
   border-radius: 30px;
   width: 100%;
   height: 42px;
@@ -159,8 +226,12 @@
 
 .mobileAuthLogin:hover,
 .mobileAuthLogin:focus {
-  color: #f6b83d;
+  color: var(--orange);
   background-color: #fff4df;
+}
+
+.mobileAuthLoginOther {
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .mobileAuthRegistr {
@@ -172,7 +243,7 @@
   line-height: 129%;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: #f6b83d;
+  color: var(--orange);
   background: #fff4df;
   border-radius: 30px;
   width: 100%;
@@ -197,6 +268,10 @@
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
     padding: 16px 32px 112px;
+  }
+
+  .headerOther {
+    padding: 16px 0 85px;
   }
 
   .logo {
@@ -233,7 +308,7 @@
 
   .mobileAuth {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     gap: 8px;
     padding: 0 17px;
   }
@@ -268,6 +343,10 @@
     padding: 16px 64px 112px;
   }
 
+  .headerOther {
+    padding: 16px 32px 96px;
+  }
+
   .navigation {
     display: flex;
     gap: 110px;
@@ -284,19 +363,36 @@
     font-size: 16px;
     line-height: 125%;
     letter-spacing: -0.03em;
-    color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 30px;
     padding: 14px 19px;
     transition:
       color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .navLink:hover,
-  .navLink:focus {
-    color: #f6b83d;
+  .navLink.navLinkHome:hover,
+  .navLink.navLinkHome:focus {
+    color: var(--orange);
     background-color: #fff4df;
+  }
+
+  .navLink.navLinkOther:hover,
+  .navLink.navLinkOther:focus {
+    border-color: var(--orange);
+  }
+
+  .navLinkHome {
+    color: #fff;
+  }
+
+  .navLinkOther {
+    color: var(--main);
+  }
+
+  .navLinkIsActive {
+    border-color: var(--orange);
   }
 
   .listAuth {
@@ -319,9 +415,13 @@
       background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  .linkLoginOther {
+    background-color: var(--orange);
+  }
+
   .linkLogin:hover,
   .linkLogin:focus {
-    color: #f6b83d;
+    color: var(--orange);
     background-color: #fff4df;
   }
 
@@ -331,7 +431,7 @@
     line-height: 125%;
     letter-spacing: -0.03em;
     text-transform: uppercase;
-    color: #f6b83d;
+    color: var(--orange);
     border-radius: 30px;
     padding: 15px 20px;
     background-color: #fff4df;

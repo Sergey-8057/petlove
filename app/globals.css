@@ -1,12 +1,17 @@
 :root {
   --white: #f9f9f9;
   --main: #262626;
+  --orange: #f6b83d;
 }
 
 body {
   color: var(--main);
   background: var(--white);
   font-family: var(--font-family), sans-serif;
+}
+
+body.home-page {
+  background-color: #fff;
 }
 
 * {

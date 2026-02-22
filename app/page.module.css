@@ -1,6 +1,6 @@
-body {
+/* body {
   background-color: #fff;
-}
+} */
 
 .container {
   max-width: 375px;
@@ -10,7 +10,7 @@ body {
 }
 
 .hero {
-  background: #f6b83d;
+  background: var(--orange);
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   padding: 0 20px 50px;

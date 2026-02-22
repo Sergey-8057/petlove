@@ -9,6 +9,7 @@ import css from './Header.module.css';
 
 const Header = () => {
   const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,11 +35,31 @@ const Header = () => {
 
   return (
     <section className={css.container}>
-      <header className={css.header}>
+      <header
+        className={clsx(css.header, {
+          [css.headerHome]: isHomePage,
+          [css.headerOther]: !isHomePage,
+        })}
+      >
         {/* Logo */}
-        <Link className={css.logo} href="/" aria-label="Home">
+        <Link
+          className={clsx(css.logo, {
+            [css.logoHome]: isHomePage,
+            [css.logoOther]: !isHomePage,
+          })}
+          href="/"
+          aria-label="Home"
+        >
           petl
-          <svg className={css.iconHeart} width="23" height="23" aria-hidden="true">
+          <svg
+            className={clsx(css.iconHeart, {
+              [css.iconHeartHome]: isHomePage,
+              [css.iconHeartOther]: !isHomePage,
+            })}
+            width="23"
+            height="23"
+            aria-hidden="true"
+          >
             <use href="/symbol-defs.svg#icon-heart" />
           </svg>
           ve
@@ -51,7 +72,9 @@ const Header = () => {
               <Link
                 href="/news"
                 className={clsx(css.navLink, {
-                  [css.isActive]: pathname === '/news',
+                  [css.navLinkHome]: isHomePage,
+                  [css.navLinkOther]: !isHomePage,
+                  [css.navLinkIsActive]: pathname === '/news',
                 })}
               >
                 News
@@ -61,7 +84,9 @@ const Header = () => {
               <Link
                 href="/notices"
                 className={clsx(css.navLink, {
-                  [css.isActive]: pathname === '/notices',
+                  [css.navLinkHome]: isHomePage,
+                  [css.navLinkOther]: !isHomePage,
+                  [css.navLinkIsActive]: pathname === '/notices',
                 })}
               >
                 Find pet
@@ -71,7 +96,9 @@ const Header = () => {
               <Link
                 href="/friends"
                 className={clsx(css.navLink, {
-                  [css.isActive]: pathname === '/friends',
+                  [css.navLinkHome]: isHomePage,
+                  [css.navLinkOther]: !isHomePage,
+                  [css.navLinkIsActive]: pathname === '/friends',
                 })}
               >
                 Our friends
@@ -81,7 +108,12 @@ const Header = () => {
 
           {/* Auth */}
           <div className={css.listAuth}>
-            <Link href="/login" className={css.linkLogin}>
+            <Link
+              href="/login"
+              className={clsx(css.linkLogin, {
+                [css.linkLoginOther]: !isHomePage,
+              })}
+            >
               Log In
             </Link>
             <Link href="/registr" className={css.linkRegistr}>
@@ -96,7 +128,14 @@ const Header = () => {
           className={css.menuButton}
           aria-label="Open menu"
         >
-          <svg className={css.iconMenu} width="32" height="32">
+          <svg
+            className={clsx(css.iconMenu, {
+              [css.iconMenuHome]: isHomePage,
+              [css.iconMenuOther]: !isHomePage,
+            })}
+            width="32"
+            height="32"
+          >
             <use href="/symbol-defs.svg#icon-menu" />
           </svg>
         </button>
@@ -114,34 +153,65 @@ const Header = () => {
       <div
         className={clsx(css.mobileMenu, {
           [css.mobileMenuOpen]: isOpen,
+          [css.mobileMenuHome]: isHomePage,
+          [css.mobileMenuOther]: !isHomePage,
         })}
       >
         <button type="button" onClick={toggleMenu} className={css.closeButton}>
-          <svg className={css.iconClose} width="32" height="32">
+          <svg
+            className={clsx(css.iconClose, {
+              [css.iconCloseHome]: isHomePage,
+              [css.iconCloseOther]: !isHomePage,
+            })}
+            width="32"
+            height="32"
+          >
             <use href="/symbol-defs.svg#icon-close" />
           </svg>
         </button>
 
         <div className={css.mobileList}>
           <ul className={css.mobileNav}>
-            <li className={css.mobileNavItem}>
+            <li
+              className={clsx(css.mobileNavItem, {
+                [css.mobileNavItemHome]: isHomePage,
+                [css.mobileNavItemOther]: !isHomePage,
+                [css.mobileNavItemIsActive]: pathname === '/news',
+              })}
+            >
               <Link href="/news" onClick={toggleMenu}>
                 News
               </Link>
             </li>
-            <li className={css.mobileNavItem}>
+            <li
+              className={clsx(css.mobileNavItem, {
+                [css.mobileNavItemHome]: isHomePage,
+                [css.mobileNavItemOther]: !isHomePage,
+                [css.mobileNavItemIsActive]: pathname === '/notices',
+              })}
+            >
               <Link href="/notices" onClick={toggleMenu}>
                 Find pet
               </Link>
             </li>
-            <li className={css.mobileNavItem}>
+            <li
+              className={clsx(css.mobileNavItem, {
+                [css.mobileNavItemHome]: isHomePage,
+                [css.mobileNavItemOther]: !isHomePage,
+                [css.mobileNavItemIsActive]: pathname === '/friends',
+              })}
+            >
               <Link href="/friends" onClick={toggleMenu}>
                 Our friends
               </Link>
             </li>
           </ul>
           <ul className={css.mobileAuth}>
-            <li className={css.mobileAuthLogin}>
+            <li
+              className={clsx(css.mobileAuthLogin, {
+                [css.mobileAuthLoginOther]: !isHomePage,
+              })}
+            >
               <Link href="/login" onClick={toggleMenu}>
                 Log In
               </Link>

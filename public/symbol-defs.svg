@@ -1,12 +1,12 @@
 <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <symbol id="icon-heart" viewBox="0 0 32 32">
-      <path d="M15.99 7.56c-2.559-3.021-6.826-3.834-10.031-1.067-3.208 2.767-3.659 7.393-1.141 10.666 1.614 2.095 5.743 5.983 8.505 8.506 0.918 0.839 1.376 1.258 1.926 1.426 0.473 0.145 1.011 0.145 1.485 0 0.55-0.167 1.009-0.587 1.926-1.426 2.762-2.524 6.893-6.41 8.505-8.506 2.518-3.272 2.122-7.928-1.141-10.666-3.26-2.738-7.473-1.953-10.031 1.067z"></path>
+      <path d="M15.991 7.561c-2.559-3.022-6.827-3.834-10.033-1.068s-3.658 7.393-1.14 10.665c1.613 2.096 5.743 5.983 8.505 8.506 0.918 0.839 1.376 1.258 1.926 1.426 0.473 0.145 1.012 0.145 1.485 0 0.55-0.168 1.008-0.588 1.926-1.426 2.761-2.524 6.892-6.41 8.505-8.506 2.518-3.272 2.122-7.928-1.14-10.665s-7.474-1.954-10.033 1.068z"></path>
     </symbol>
     <symbol id="icon-menu" viewBox="0 0 32 32">
-      <path fill="none" stroke="#fff" stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--color1, #fff)" d="M4 16h24"></path>
-      <path fill="none" stroke="#fff" stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--color1, #fff)" d="M4 8h24"></path>
-      <path fill="none" stroke="#fff" stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--color1, #fff)" d="M4 24h24"></path>
+      <path stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" d="M4 16h24"></path>
+      <path stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" d="M4 8h24"></path>
+      <path stroke-width="3" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" d="M4 24h24"></path>
     </symbol>
 
     <symbol id="icon-close" viewBox="0 0 32 32">
