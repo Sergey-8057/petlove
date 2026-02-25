@@ -1,6 +1,14 @@
 .title {
   font-weight: 700;
-  font-size: 54px;
+  font-size: 28px;
   line-height: 100%;
   letter-spacing: -0.03em;
+}
+
+/* ======= for Tablet and Desktop screen ======= */
+
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 54px;
+  }
 }

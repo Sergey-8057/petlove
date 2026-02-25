@@ -1,26 +1,11 @@
 // import { cookies } from 'next/headers';
 import { nextServer } from './api';
-
-export interface News {
-  imgUrl: string;
-  title: string;
-  text: string;
-  date: string;
-  url: string;
-  id: string;
-}
-
-export interface NewsResponse {
-  results: News[];
-  page: number;
-  perPage: number;
-  totalPages: number;
-}
+import { NewsResponse } from '@/types/news';
 
 export const serverFetchNews = async (
   // keyword: string,
-  page = 1,
-  limit = 6
+  page: number,
+  limit: number
 ) => {
   // const trimmedSearch = keyword.trim();
   // if (trimmedSearch) {
