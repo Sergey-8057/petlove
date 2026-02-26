@@ -1,0 +1,160 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+  margin: 0 auto;
+}
+
+.containerArrow {
+  display: flex;
+  gap: 6px;
+}
+
+.iconSlider {
+  width: 20px;
+  height: 20px;
+  fill: var(--main);
+}
+
+.doubleIcon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.doubleIcon svg {
+  position: absolute;
+  bottom: 1px;
+}
+
+.doubleIcon svg:first-child {
+  left: 4px;
+}
+
+.doubleIcon svg:last-child {
+  left: 12px;
+}
+
+.arrow {
+  border-radius: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(38, 38, 38, 0.05);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arrow:hover,
+.arrow:focus {
+  border-color: var(--orange);
+}
+
+.arrow:disabled {
+  cursor: not-allowed;
+  border-color: rgba(38, 38, 38, 0.05);
+  pointer-events: none;
+}
+
+.arrow:disabled .iconSlider {
+  fill: rgba(38, 38, 38, 0.5);
+}
+
+.mobileOnly {
+  display: flex;
+  gap: 10px;
+  margin: 0 11px;
+}
+
+.desktopOnly {
+  display: none;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  border-radius: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(38, 38, 38, 0.05);
+  width: 40px;
+  height: 40px;
+}
+
+.paginationNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  border-radius: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(38, 38, 38, 0.05);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paginationNumber:hover,
+.paginationNumber:focus {
+  border-color: var(--orange);
+}
+
+.active {
+  color: var(--white);
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+/* ======= for Tablet and Desktop screen ======= */
+
+@media screen and (min-width: 768px) {
+  .containerArrow {
+    gap: 8px;
+  }
+
+  .iconSlider {
+    width: 24px;
+    height: 24px;
+  }
+
+  .doubleIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobileOnly {
+    display: none;
+  }
+
+  .desktopOnly {
+    display: flex;
+    gap: 10px;
+    margin: 0 24px;
+  }
+
+  .ellipsis {
+    font-size: 20px;
+    line-height: 110%;
+    width: 44px;
+    height: 44px;
+  }
+
+  .paginationNumber {
+    font-size: 18px;
+    line-height: 122%;
+    width: 44px;
+    height: 44px;
+  }
+}

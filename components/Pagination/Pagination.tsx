@@ -1,6 +1,8 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import clsx from 'clsx';
+
 import css from './Pagination.module.css';
 
 interface PaginationProps {
@@ -22,81 +24,171 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
   // Если страниц 1 или меньше — не показываем пагинацию
   if (totalPages <= 1) return null;
 
-  // ===== Генерация страниц с "..."
-  const generatePages = () => {
+  // Пагинация для Мобильных экранов
+  const generateMobilePages = () => {
     const pages: (number | string)[] = [];
 
-    const delta = 2; // сколько страниц показывать вокруг текущей
+    if (totalPages === 1) return [1];
 
-    const left = currentPage - delta;
-    const right = currentPage + delta;
+    if (currentPage === 1) {
+      pages.push(1, 2);
+      if (totalPages > 2) pages.push('...');
+      return pages;
+    }
 
-    // Всегда показываем первую страницу
-    pages.push(1);
+    if (currentPage === totalPages) {
+      pages.push('...');
+      pages.push(totalPages - 1, totalPages);
+      return pages;
+    }
 
-    // Если есть разрыв слева — добавляем ...
-    if (left > 2) {
+    pages.push('...', currentPage, '...');
+    return pages;
+  };
+
+  // ===== Генерация страниц с "..."
+  const generateDesktopPages = () => {
+    const pages: (number | string)[] = [];
+
+    // Если страниц <= 3 — показываем все
+    if (totalPages <= 3) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    let start = currentPage - 1;
+    let end = currentPage + 1;
+
+    // Если мы в начале
+    if (currentPage <= 2) {
+      start = 1;
+      end = 3;
+    }
+
+    // Если мы в конце
+    if (currentPage >= totalPages - 1) {
+      start = totalPages - 2;
+      end = totalPages;
+    }
+
+    // Если есть страницы до диапазона — показываем ...
+    if (start > 1) {
       pages.push('...');
     }
 
-    // Центральные страницы
-    for (let i = Math.max(2, left); i <= Math.min(totalPages - 1, right); i++) {
+    // Основные страницы
+    for (let i = start; i <= end; i++) {
       pages.push(i);
     }
 
-    // Если есть разрыв справа — добавляем ...
-    if (right < totalPages - 1) {
+    // Если есть страницы после диапазона — показываем ...
+    if (end < totalPages) {
       pages.push('...');
-    }
-
-    // Всегда показываем последнюю страницу
-    if (totalPages > 1) {
-      pages.push(totalPages);
     }
 
     return pages;
   };
 
-  const pages = generatePages();
+  const mobilePages = generateMobilePages();
+  const desktopPages = generateDesktopPages();
 
   return (
     <div className={css.pagination}>
-      {/* << Первая */}
-      <button disabled={currentPage === 1} onClick={() => goToPage(1)}>
-        {'<<'}
-      </button>
-
-      {/* < Предыдущая */}
-      <button disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)}>
-        {'<'}
-      </button>
+      <div className={css.containerArrow}>
+        {/* << Первая */}
+        <button className={css.arrow} disabled={currentPage === 1} onClick={() => goToPage(1)}>
+          <div className={css.doubleIcon}>
+            <svg className={css.iconSlider} width="24" height="24">
+              <use href="/symbol-defs.svg#icon-slider-left" />
+            </svg>
+            <svg className={css.iconSlider} width="24" height="24">
+              <use href="/symbol-defs.svg#icon-slider-left" />
+            </svg>
+          </div>
+        </button>
+        {/* < Предыдущая */}
+        <button
+          className={css.arrow}
+          disabled={currentPage === 1}
+          onClick={() => goToPage(currentPage - 1)}
+        >
+          <svg className={css.iconSlider} width="24" height="24" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-slider-left" />
+          </svg>
+        </button>
+      </div>
 
       {/* Номера страниц */}
-      {pages.map((page, index) =>
-        page === '...' ? (
-          <span key={`ellipsis-${index}`} className={css.ellipsis}>
-            ...
-          </span>
-        ) : (
-          <button
-            key={`page-${page}`}
-            onClick={() => goToPage(Number(page))}
-            className={Number(page) === currentPage ? css.active : ''}
-          >
-            {page}
-          </button>
-        )
-      )}
+      <div className={css.containerNumber}>
+        {/* Mobile */}
+        <div className={css.mobileOnly}>
+          {mobilePages.map((page, index) =>
+            page === '...' ? (
+              <span key={`m-ellipsis-${index}`} className={css.ellipsis}>
+                ...
+              </span>
+            ) : (
+              <button
+                key={`m-page-${page}`}
+                onClick={() => goToPage(Number(page))}
+                className={clsx(css.paginationNumber, {
+                  [css.active]: Number(page) === currentPage,
+                })}
+              >
+                {page}
+              </button>
+            )
+          )}
+        </div>
 
-      {/* > Следующая */}
-      <button disabled={currentPage === totalPages} onClick={() => goToPage(currentPage + 1)}>
-        {'>'}
-      </button>
+        {/* Desktop */}
+        <div className={css.desktopOnly}>
+          {desktopPages.map((page, index) =>
+            page === '...' ? (
+              <span key={`d-ellipsis-${index}`} className={css.ellipsis}>
+                ...
+              </span>
+            ) : (
+              <button
+                key={`d-page-${page}`}
+                onClick={() => goToPage(Number(page))}
+                className={clsx(css.paginationNumber, {
+                  [css.active]: Number(page) === currentPage,
+                })}
+              >
+                {page}
+              </button>
+            )
+          )}
+        </div>
+      </div>
 
-      {/* >> Последняя */}
-      <button disabled={currentPage === totalPages} onClick={() => goToPage(totalPages)}>
-        {'>>'}
-      </button>
+      <div className={css.containerArrow}>
+        {/* > Следующая */}
+        <button
+          className={css.arrow}
+          disabled={currentPage === totalPages}
+          onClick={() => goToPage(currentPage + 1)}
+        >
+          <svg className={css.iconSlider} width="24" height="24" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-slider-right" />
+          </svg>
+        </button>
+        {/* >> Последняя */}
+        <button
+          className={css.arrow}
+          disabled={currentPage === totalPages}
+          onClick={() => goToPage(totalPages)}
+        >
+          <div className={css.doubleIcon}>
+            <svg className={css.iconSlider} width="24" height="24">
+              <use href="/symbol-defs.svg#icon-slider-right" />
+            </svg>
+            <svg className={css.iconSlider} width="24" height="24">
+              <use href="/symbol-defs.svg#icon-slider-right" />
+            </svg>
+          </div>
+        </button>
+      </div>
     </div>
   );
 }
