@@ -25,7 +25,7 @@
 
 .doubleIcon svg {
   position: absolute;
-  bottom: 1px;
+  /* bottom: 1px; */
 }
 
 .doubleIcon svg:first-child {
@@ -34,6 +34,16 @@
 
 .doubleIcon svg:last-child {
   left: 12px;
+}
+
+.oneIcon {
+  position: relative;
+}
+
+.oneIcon svg{
+  position: absolute;
+  top: 9px;
+  right: 9px
 }
 
 .arrow {

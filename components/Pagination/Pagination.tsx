@@ -14,17 +14,14 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Функция перехода на страницу
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
     router.push(`?${params.toString()}`);
   };
 
-  // Если страниц 1 или меньше — не показываем пагинацию
   if (totalPages <= 1) return null;
 
-  // Пагинация для Мобильных экранов
   const generateMobilePages = () => {
     const pages: (number | string)[] = [];
 
@@ -46,11 +43,9 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
     return pages;
   };
 
-  // ===== Генерация страниц с "..."
   const generateDesktopPages = () => {
     const pages: (number | string)[] = [];
 
-    // Если страниц <= 3 — показываем все
     if (totalPages <= 3) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
@@ -58,29 +53,24 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
     let start = currentPage - 1;
     let end = currentPage + 1;
 
-    // Если мы в начале
     if (currentPage <= 2) {
       start = 1;
       end = 3;
     }
 
-    // Если мы в конце
     if (currentPage >= totalPages - 1) {
       start = totalPages - 2;
       end = totalPages;
     }
 
-    // Если есть страницы до диапазона — показываем ...
     if (start > 1) {
       pages.push('...');
     }
 
-    // Основные страницы
     for (let i = start; i <= end; i++) {
       pages.push(i);
     }
 
-    // Если есть страницы после диапазона — показываем ...
     if (end < totalPages) {
       pages.push('...');
     }
@@ -94,7 +84,6 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
   return (
     <div className={css.pagination}>
       <div className={css.containerArrow}>
-        {/* << Первая */}
         <button className={css.arrow} disabled={currentPage === 1} onClick={() => goToPage(1)}>
           <div className={css.doubleIcon}>
             <svg className={css.iconSlider} width="24" height="24">
@@ -105,9 +94,8 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
             </svg>
           </div>
         </button>
-        {/* < Предыдущая */}
         <button
-          className={css.arrow}
+          className={clsx(css.arrow, css.oneIcon)}
           disabled={currentPage === 1}
           onClick={() => goToPage(currentPage - 1)}
         >
@@ -117,7 +105,6 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
         </button>
       </div>
 
-      {/* Номера страниц */}
       <div className={css.containerNumber}>
         {/* Mobile */}
         <div className={css.mobileOnly}>
@@ -163,9 +150,8 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       </div>
 
       <div className={css.containerArrow}>
-        {/* > Следующая */}
         <button
-          className={css.arrow}
+          className={clsx(css.arrow, css.oneIcon)}
           disabled={currentPage === totalPages}
           onClick={() => goToPage(currentPage + 1)}
         >
@@ -173,7 +159,6 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
             <use href="/symbol-defs.svg#icon-slider-right" />
           </svg>
         </button>
-        {/* >> Последняя */}
         <button
           className={css.arrow}
           disabled={currentPage === totalPages}

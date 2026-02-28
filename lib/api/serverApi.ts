@@ -3,7 +3,7 @@ import { nextServer } from './api';
 import { NewsResponse } from '@/types/news';
 
 export const serverFetchNews = async (
-  // keyword: string,
+  keyword: string,
   page: number,
   limit: number
 ) => {
@@ -13,7 +13,7 @@ export const serverFetchNews = async (
   // }
 
   const res = await nextServer.get<NewsResponse>('/news', {
-    params: { page, limit },
+    params: { keyword, page, limit },
     // headers: { cookie: await cookieHeader() },
   });
   console.log(res);
