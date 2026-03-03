@@ -1,1 +1,156 @@
+.listFriends {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 0 80px;
+}
 
+.itemFriends {
+  display: flex;
+  gap: 14px;
+  background-color: #fff;
+  border-radius: 15px;
+  max-width: 335px;
+  width: 100%;
+  min-height: 184px;
+  padding-left: 20px;
+  padding-right: 12px;
+}
+
+.imageWrapper {
+  width: 80px;
+  height: 80px;
+  margin-top: 40px;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+}
+
+.contInfo {
+  position: relative;
+  padding-top: 40px;
+  width: 100%;
+  min-width: 0;
+}
+
+.workDay {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  color: var(--orange);
+  border-radius: 30px;
+  padding: 8px;
+  background: #fff4df;
+  margin-left: auto;
+}
+
+.nameFriends {
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+
+.contContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 196px;
+  min-width: 0;
+}
+
+.nameContact {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.linkContact {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: var(--main);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.linkContact:hover,
+.linkContact:focus {
+  color: var(--orange);
+}
+
+.notContact {
+  color: var(--main);
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+  .listFriends {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 44px;
+  }
+
+  .itemFriends {
+    flex-basis: calc((100% - 20px) / 2);
+    max-width: 342px;
+    gap: 16px;
+    min-height: 196px;
+  }
+
+  .imageWrapper {
+    width: 90px;
+    height: 90px;
+    margin-top: 40px;
+  }
+
+  .image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .workDay {
+    font-size: 14px;
+    line-height: 129%;
+  }
+
+  .nameFriends {
+    font-size: 20px;
+    line-height: 130%;
+    margin-bottom: 20px;
+  }
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
+  .listFriends {
+    padding-top: 60px;
+    gap: 28px 20px;
+  }
+
+  .itemFriends {
+    flex-basis: calc((100% - 20px * 2) / 3);
+    max-width: 371px;
+    gap: 20px;
+    min-height: 196px;
+  }
+}

@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 import { Friends } from '@/types/friends';
 import css from './FriendsList.module.css';
-import { log } from 'console';
 
 type Props = {
   friends: Friends[];
@@ -13,6 +12,8 @@ function getWorkingHours(workDays: Friends['workDays']) {
   if (!workDays || workDays.length === 0) return 'Day and night';
 
   const openDays = workDays.filter(day => day.isOpen && day.from && day.to);
+
+  if (openDays.length === 0) return 'Closed';
 
   const times = openDays.map(day => ({
     from: day.from!,
@@ -27,12 +28,20 @@ function getWorkingHours(workDays: Friends['workDays']) {
 }
 
 function renderEmail(email: string | null) {
-  if (!email) return 'no mail';
+  if (!email)
+    return (
+      <p className={css.nameContact}>
+        Email: <span className={css.notContact}>no mail</span>
+      </p>
+    );
 
   return (
-    <Link className={css.linkEmail} href={`mailto:${email}`}>
-      {email}
-    </Link>
+    <p className={css.nameContact}>
+      <span>Email:</span>
+      <Link className={css.linkContact} href={`mailto:${email}`}>
+        {email}
+      </Link>
+    </p>
   );
 }
 
@@ -52,47 +61,65 @@ function renderAddressOrWebsite(
   if (formattedAddress && addressUrl) {
     const splitAddress = formattedAddress.split(', ');
 
-    let newAddress: string;
-
-    if (splitAddress[1]) {
-      newAddress = splitAddress[1] + ', ' + splitAddress[0];
-    } else {
-      newAddress = splitAddress[0];
-    }
+    const newAddress =
+      splitAddress.length > 1 ? `${splitAddress[1]}, ${splitAddress[0]}` : splitAddress[0];
 
     return (
-      <Link className={css.linkAddress} href={addressUrl} target="_blank" rel="noopener noreferrer">
-        {newAddress}
-      </Link>
+      <p className={css.nameContact}>
+        <span>Address:</span>
+        <Link
+          className={css.linkContact}
+          href={addressUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {newAddress}
+        </Link>
+      </p>
     );
   }
 
   return (
-    <Link className={css.linkText} href={websiteUrl} target="_blank" rel="noopener noreferrer">
-      website only
-    </Link>
+    <p className={css.nameContact}>
+      <span>Address:</span>
+      <Link className={css.linkContact} href={websiteUrl} target="_blank" rel="noopener noreferrer">
+        website only
+      </Link>
+    </p>
   );
 }
 
 function renderPhone(phone: string | null, email: string | null) {
   if (phone) {
     return (
-      <Link className={css.linkPhone} href={`tel:${phone}`}>
-        {phone}
-      </Link>
+      <p className={css.nameContact}>
+        <span>Phone:</span>
+        <Link className={css.linkContact} href={`tel:${phone}`}>
+          {phone}
+        </Link>
+      </p>
     );
   }
 
-  if (email) return 'email only';
+  if (email)
+    return (
+      <p className={css.nameContact}>
+        Phone: <span className={css.notContact}>email only</span>
+      </p>
+    );
 
-  return 'no phone';
+  return (
+    <p className={css.nameContact}>
+      Phone: <span className={css.notContact}>no phone</span>
+    </p>
+  );
 }
 
 export default function FriendsList({ friends }: Props) {
   return (
     <ul className={css.listFriends}>
       {friends.map(item => (
-        <li key={item._id}>
+        <li key={item._id} className={css.itemFriends}>
           <div className={css.imageWrapper}>
             <Image
               className={css.image}
@@ -103,14 +130,15 @@ export default function FriendsList({ friends }: Props) {
             />
           </div>
           <div className={css.contInfo}>
-            <p className={css.WorkDay}>{getWorkingHours(item.workDays)}</p>
-            <h2>{item.title}</h2>
+            <p className={css.workDay}>{getWorkingHours(item.workDays)}</p>
+            <h2 className={css.nameFriends}>{item.title}</h2>
+            <div className={css.contContacts}>
+              {renderEmail(item.email)}
 
-            {renderEmail(item.email)}
+              {renderAddressOrWebsite(item.address, item.addressUrl, item.url)}
 
-            {renderAddressOrWebsite(item.address, item.addressUrl, item.url)}
-
-            {renderPhone(item.phone, item.email)}
+              {renderPhone(item.phone, item.email)}
+            </div>
           </div>
         </li>
       ))}
