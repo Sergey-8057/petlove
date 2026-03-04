@@ -21,17 +21,19 @@
   width: 80px;
   height: 80px;
   margin-top: 40px;
+  flex-shrink: 0;
 }
 
 .image {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .contInfo {
   position: relative;
   padding-top: 40px;
-  width: 100%;
+  flex: 1;
   min-width: 0;
 }
 
@@ -120,11 +122,6 @@
     width: 90px;
     height: 90px;
     margin-top: 40px;
-  }
-
-  .image {
-    width: 90px;
-    height: 90px;
   }
 
   .workDay {
