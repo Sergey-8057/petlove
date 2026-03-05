@@ -20,7 +20,7 @@
 
 .headerOther {
   background-color: var(--white);
-  padding: 14px 0 54px;
+  padding: 14px 0 16px;
 }
 
 .logo {
@@ -271,7 +271,7 @@
   }
 
   .headerOther {
-    padding: 16px 0 85px;
+    padding: 16px 0 32px;
   }
 
   .logo {
@@ -344,7 +344,7 @@
   }
 
   .headerOther {
-    padding: 16px 32px 96px;
+    padding: 16px 32px 32px;
   }
 
   .navigation {

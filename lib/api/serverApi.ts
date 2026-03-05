@@ -1,13 +1,10 @@
 // import { cookies } from 'next/headers';
 import { nextServer } from './api';
 import { NewsResponse } from '@/types/news';
+import { NoticesResponse } from '@/types/notices';
 import { Friends } from '@/types/friends';
 
-export const serverFetchNews = async (
-  keyword: string,
-  page: number,
-  limit: number
-) => {
+export const serverFetchNews = async (keyword: string, page: number, limit: number) => {
   const res = await nextServer.get<NewsResponse>('/news', {
     params: { keyword, page, limit },
   });
@@ -16,6 +13,14 @@ export const serverFetchNews = async (
 
 export const serverFetchFriends = async () => {
   const res = await nextServer.get<Friends[]>('/friends');
+  return res.data;
+};
+
+export const serverFetchNotices = async (keyword: string, page: number, limit: number) => {
+  const res = await nextServer.get<NoticesResponse>('/notices', {
+    params: { keyword, page, limit },
+  });
+  console.log(res.data);
   return res.data;
 };
 

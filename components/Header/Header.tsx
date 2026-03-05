@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import css from './Header.module.css';
 
-const Header = () => {
+export default function Header () {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -227,5 +227,3 @@ const Header = () => {
     </section>
   );
 };
-
-export default Header;

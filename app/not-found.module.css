@@ -20,6 +20,7 @@
 .contFourZeroFour {
   display: flex;
   gap: 8px;
+  justify-content: center;
   align-items: center;
 }
 
@@ -78,6 +79,36 @@
     max-width: 768px;
     padding: 0 32px;
   }
+  .containerNotFound {
+  border-radius: 60px;
+}
+
+.contFourZeroFour {
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.imageZeroWrapper {
+  width: 280px;
+  height: 280px;
+}
+
+.numberFour {
+  font-size: 300px;
+}
+
+.textNotFound {
+  font-size: 24px;
+  line-height: 117%;
+}
+
+.linkToHome {
+  font-size: 16px;
+  line-height: 125%;
+  color: #f6b83d;
+  max-width: 162px;
+  height: 48px;
+}
 }
 
 /* ======= for Desktop screen ======= */
@@ -85,6 +116,6 @@
 @media screen and (min-width: 1280px) {
   .container {
     max-width: 1280px;
-    padding: 0 64px;
+    padding: 0 32px;
   }
 }
