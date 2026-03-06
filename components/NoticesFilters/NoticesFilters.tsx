@@ -1,5 +1,5 @@
 import css from './NoticesFilters.module.css';
 
 export default function NoticesFilters() {
-  return <></>;
+  return <div className={css.container}></div>;
 }
