@@ -21,7 +21,7 @@ export default function NoticesList({ notices }: Props) {
     <div className={css.containerNoticesList}>
       <ul className={css.listNotices}>
         {notices.map(item => (
-          <li key={item._id} className={css.niticesItem}>
+          <li key={item._id} className={css.noticesItem}>
             <div className={css.imageWrapper}>
               <Image
                 src={item.imgURL}

@@ -20,7 +20,16 @@ export const serverFetchNotices = async (keyword: string, page: number, limit: n
   const res = await nextServer.get<NoticesResponse>('/notices', {
     params: { keyword, page, limit },
   });
-  console.log(res.data);
+  return res.data;
+};
+
+export const fetchAllNotiesCategories = async (): Promise<string[]> => {
+  const res = await nextServer.get<string[]>(`/notices/categories`);
+  return res.data;
+};
+
+export const fetchAllNotiesGender = async (): Promise<string[]> => {
+  const res = await nextServer.get<string[]>(`/notices/sex`);
   return res.data;
 };
 

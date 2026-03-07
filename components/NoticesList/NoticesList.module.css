@@ -9,7 +9,7 @@
   gap: 20px;
 }
 
-.niticesItem {
+.noticesItem {
   padding: 24px;
   background-color: #fff;
   border-radius: 16px;
@@ -72,6 +72,7 @@
   line-height: 140%;
   letter-spacing: -0.02em;
   color: rgba(38, 38, 38, 0.5);
+  margin-bottom: 2px;
 }
 
 .contInfoValue {
@@ -165,9 +166,83 @@
 /* ======= for Tablet screen ======= */
 
 @media screen and (min-width: 768px) {
+  .containerNoticesList {
+    padding-top: 32px;
+    padding-bottom: 60px;
+  }
+
+  .listNotices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .noticesItem {
+    flex-basis: calc((100% - 20px) / 2);
+  }
+
+  .imageWrapper {
+    border-radius: 16px;
+    max-width: 294px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 133%;
+  }
+
+  .rating {
+    gap: 2px;
+  }
+
+  .popularity {
+    line-height: 133%;
+  }
+
+  .comment {
+    margin-bottom: 24px;
+  }
+
+  .prise {
+    font-size: 18px;
+    line-height: 133%;
+  }
+
+  .linkLearnMore {
+    font-size: 16px;
+    line-height: 125%;
+    max-width: 236px;
+    height: 48px;
+  }
+
+  .heartButton {
+    max-width: 48px;
+    height: 48px;
+  }
 }
 
 /* ======= for Desktop screen ======= */
 
 @media screen and (min-width: 1280px) {
+  .containerNoticesList {
+    padding-top: 40px;
+  }
+
+  .listNotices {
+    gap: 40px 32px;
+  }
+
+  .noticesItem {
+    flex-basis: calc((100% - 32px * 2) / 3);
+  }
+
+  .imageWrapper {
+    border-radius: 16px;
+    max-width: 315px;
+  }
+
+  .linkLearnMore {
+    max-width: 257px;
+  }
 }
