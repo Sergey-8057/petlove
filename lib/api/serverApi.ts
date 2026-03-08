@@ -2,6 +2,7 @@
 import { nextServer } from './api';
 import { NewsResponse } from '@/types/news';
 import { NoticesResponse } from '@/types/notices';
+import { LocationsResponse } from '@/types/locations';
 import { Friends } from '@/types/friends';
 
 export const serverFetchNews = async (keyword: string, page: number, limit: number) => {
@@ -30,6 +31,16 @@ export const fetchAllNotiesCategories = async (): Promise<string[]> => {
 
 export const fetchAllNotiesGender = async (): Promise<string[]> => {
   const res = await nextServer.get<string[]>(`/notices/sex`);
+  return res.data;
+};
+
+export const fetchAllNotiesType = async (): Promise<string[]> => {
+  const res = await nextServer.get<string[]>(`/notices/species`);
+  return res.data;
+};
+
+export const fetchAllNotiesLocations = async () => {
+  const res = await nextServer.get<LocationsResponse[]>(`/cities/locations`);
   return res.data;
 };
 

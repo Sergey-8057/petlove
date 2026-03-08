@@ -1,5 +1,10 @@
 import { serverFetchNotices } from '@/lib/api/serverApi';
-import { fetchAllNotiesCategories, fetchAllNotiesGender } from '@/lib/api/serverApi';
+import {
+  fetchAllNotiesCategories,
+  fetchAllNotiesGender,
+  fetchAllNotiesType,
+  fetchAllNotiesLocations,
+} from '@/lib/api/serverApi';
 import Title from '@/components/Title/Title';
 import NoticesFilters from '@/components/NoticesFilters/NoticesFilters';
 import NoticesList from '@/components/NoticesList/NoticesList';
@@ -23,12 +28,14 @@ export default async function NotiesPage({ searchParams }: NotiesPageProps) {
   const isEmptySearch = data.results.length === 0;
   const category = await fetchAllNotiesCategories();
   const gender = await fetchAllNotiesGender();
+  const type = await fetchAllNotiesType();
+  const location = await fetchAllNotiesLocations();
 
   return (
     <div className={css.container}>
       <div className={css.contTitleSearchField}>
         <Title title={titleForPageNews} />
-        <NoticesFilters category={category} gender={gender} />
+        <NoticesFilters category={category} gender={gender} type={type} location={location} />
       </div>
       {isEmptySearch ? (
         <p className={css.emptyMessage}>

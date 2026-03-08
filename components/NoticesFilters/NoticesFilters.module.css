@@ -10,18 +10,19 @@
 }
 
 .searchFieldWrapper input {
-  color: #262626;
+  color: var(--main);
   border-color: transparent;
 }
 
 .searchFieldWrapper input::placeholder {
-  color: #262626;
+  color: var(--main);
 }
 
-.contCategoryGender {
+.categoryGenderWrapper {
   display: flex;
   gap: 8px;
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .select {
@@ -33,7 +34,7 @@
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.03em;
-  color: #262626;
+  color: var(--main);
   border: transparent;
   transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -49,14 +50,18 @@
 
 .select option {
   font-weight: 500;
-font-size: 14px;
-line-height: 129%;
-letter-spacing: -0.03em;
-color: rgba(38, 38, 38, 0.6);
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.6);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .select option:hover {
   background-color: #fff4df;
   color: #f6b83d;
+}
+
+.typeWrapper {
+  margin-bottom: 12px;
 }
