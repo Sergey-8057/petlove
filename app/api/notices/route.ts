@@ -7,16 +7,9 @@ import { logErrorResponse } from '../_utils/utils';
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const keyword = searchParams.get('keyword') ?? '';
-    const page = searchParams.get('page') ?? '1';
-    const limit = searchParams.get('limit') ?? '6';
 
     const res = await api('/notices', {
-      params: {
-        ...(keyword && { keyword }),
-        page,
-        limit,
-      },
+      params: Object.fromEntries(searchParams),
     });
 
     return NextResponse.json(res.data, { status: res.status });

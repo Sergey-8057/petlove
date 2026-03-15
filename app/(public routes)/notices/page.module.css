@@ -34,9 +34,8 @@
   }
 
   .contTitleSearchField {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
+    gap: 44px;
     padding-top: 53px;
   }
 }
@@ -49,7 +48,12 @@
     padding: 0 64px;
   }
 
-  .contTitleSearchField{
+  .filtersWrapper {
+    margin: 0 -32px;
+  }
+
+  .contTitleSearchField {
     padding-top: 64px;
+    gap: 40px;
   }
 }

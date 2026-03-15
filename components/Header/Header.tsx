@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import css from './Header.module.css';
 
-export default function Header () {
+export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -116,7 +116,7 @@ export default function Header () {
             >
               Log In
             </Link>
-            <Link href="/registr" className={css.linkRegistr}>
+            <Link href="/register" className={css.linkRegistr}>
               Registration
             </Link>
           </div>
@@ -217,7 +217,7 @@ export default function Header () {
               </Link>
             </li>
             <li className={css.mobileAuthRegistr}>
-              <Link href="/registr" onClick={toggleMenu}>
+              <Link href="/register" onClick={toggleMenu}>
                 Registration
               </Link>
             </li>
@@ -226,4 +226,4 @@ export default function Header () {
       </div>
     </section>
   );
-};
+}

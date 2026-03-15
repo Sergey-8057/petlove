@@ -1,7 +1,7 @@
 // import { cookies } from 'next/headers';
 import { nextServer } from './api';
 import { NewsResponse } from '@/types/news';
-import { NoticesResponse } from '@/types/notices';
+import { NoticesResponse, NoticesQueryParams } from '@/types/notices';
 import { LocationsResponse } from '@/types/locations';
 import { Friends } from '@/types/friends';
 
@@ -17,10 +17,11 @@ export const serverFetchFriends = async () => {
   return res.data;
 };
 
-export const serverFetchNotices = async (keyword: string, page: number, limit: number) => {
+export const serverFetchNotices = async (params: NoticesQueryParams) => {
   const res = await nextServer.get<NoticesResponse>('/notices', {
-    params: { keyword, page, limit },
+    params,
   });
+
   return res.data;
 };
 

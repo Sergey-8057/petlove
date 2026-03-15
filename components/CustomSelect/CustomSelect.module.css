@@ -36,6 +36,7 @@
 
 .dropdown {
   position: absolute;
+  z-index: 1;
   top: calc(100% + 4px);
   left: 0;
   width: 100%;
@@ -77,4 +78,53 @@
 
 .option:hover {
   color: var(--orange);
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+  .select {
+    display: inline-block;
+    max-width: 170px;
+    width: 100%;
+  }
+
+  .select:first-child {
+  margin-right: 16px;
+}
+
+  .selectButton {
+    height: 48px;
+    padding: 14px 36px 14px 14px;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  .dropdown {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .option {
+    font-size: 16px;
+    line-height: 125%;
+    padding: 4px 14px;
+  }
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
+  .select:nth-child(1) {
+  max-width: 200px;
+}
+
+.select:nth-child(2) {
+  max-width: 190px;
+  margin-right: 0;
+}
+
+  .select {
+  margin-right: 16px;
+}
 }

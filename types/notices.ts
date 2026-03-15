@@ -22,3 +22,15 @@ export interface NoticesResponse {
   perPage: number;
   totalPages: number;
 }
+
+export interface NoticesQueryParams {
+  keyword?: string;
+  category?: string;
+  species?: string;
+  locationId?: string;
+  sex?: string;
+  byPopularity?: boolean;
+  byPrice?: boolean;
+  page?: number;
+  limit?: number;
+}

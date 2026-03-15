@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  color: var(--main);
+  background-color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 250ms ease-in-out,
+    color 250ms ease-in-out;
+}
+
+.active {
+  background-color: var(--orange);
+  color: #fff;
+}
+
+.clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  transition: color 250ms ease-in-out;
+}
+
+.iconCross {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.button:hover .clear {
+  color: #ef2447;
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+  .container {
+    gap: 8px;
+  }
+
+  .button {
+    gap: 8px;
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    line-height: 125%;
+  }
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
+}

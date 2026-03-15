@@ -22,9 +22,13 @@ export default async function NotiesPage({ searchParams }: NotiesPageProps) {
   const limit = 6;
   const titleForPageNews = 'Find your favorite pet';
   const params = await searchParams;
-  const keyword = params.keyword || '';
   const currentPage = Number(params.page) || 1;
-  const data = await serverFetchNotices(keyword, currentPage, limit);
+  const query = {
+    ...params,
+    page: Number(params.page) || 1,
+    limit,
+  };
+  const data = await serverFetchNotices(query);
   const isEmptySearch = data.results.length === 0;
   const category = await fetchAllNotiesCategories();
   const gender = await fetchAllNotiesGender();
@@ -35,12 +39,12 @@ export default async function NotiesPage({ searchParams }: NotiesPageProps) {
     <div className={css.container}>
       <div className={css.contTitleSearchField}>
         <Title title={titleForPageNews} />
-        <NoticesFilters category={category} gender={gender} type={type} location={location} />
+        <div className={css.filtersWrapper}>
+          <NoticesFilters category={category} gender={gender} type={type} location={location} />
+        </div>
       </div>
       {isEmptySearch ? (
-        <p className={css.emptyMessage}>
-          Nothing found for &quot;<span>{keyword}</span>&quot;
-        </p>
+        <p className={css.emptyMessage}>Nothing found</p>
       ) : (
         <>
           <NoticesList notices={data.results} />

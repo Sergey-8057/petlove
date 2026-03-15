@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 
 import css from './CustomSelect.module.css';
@@ -8,12 +9,20 @@ import css from './CustomSelect.module.css';
 interface CustomSelectProps {
   options: string[];
   placeholder: string;
+  queryKey: string;
   onChange?: (value: string) => void;
 }
 
-export default function CustomSelect({ options, placeholder, onChange }: CustomSelectProps) {
+export default function CustomSelect({
+  options,
+  placeholder,
+  queryKey,
+  onChange,
+}: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('');
+
+  const searchParams = useSearchParams();
+  const selected = searchParams.get(queryKey) || '';
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -22,7 +31,6 @@ export default function CustomSelect({ options, placeholder, onChange }: CustomS
   };
 
   const handleSelect = (value: string) => {
-    setSelected(value);
     setIsOpen(false);
     onChange?.(value);
   };
