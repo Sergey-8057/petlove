@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { register, RegisterRequest } from '@/lib/api/clientApi';
-import { ApiError } from '@/app/api/api';
+import toast from 'react-hot-toast';
 
+import { register, RegisterRequest } from '@/lib/api/clientApi';
 import Title from '@/components/Title/Title';
 import PetBlock from '@/components/PetBlock/PetBlock';
 import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
@@ -12,34 +12,38 @@ import css from './Register.module.css';
 
 export default function Register() {
   const titleForPageRegister = 'Registration';
+  const imageName = 'image-register';
+  const altName = 'cat';
   const router = useRouter();
-  const [error, setError] = useState('');
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (data: RegisterRequest) => {
     try {
-      const formValues = Object.fromEntries(formData) as RegisterRequest;
-      const res = await register(formValues);
+      const res = await register(data);
       if (res) {
+        toast.success('Registration successful 🎉');
         router.push('/profile');
-      } else {
-        setError('Invalid email or password');
       }
-    } catch (error) {
-      setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          'Oops... some error'
-      );
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Registration failed';
+      toast.error(message);
     }
   };
 
   return (
     <main className={css.mainContent}>
-      <Title title={titleForPageRegister} />
-      <PetBlock />
-      <RegistrationForm onSubmit={handleSubmit} error={error} />
-
-      {error && <p>{error}</p>}
+      <PetBlock imageName={imageName} alt={altName} />
+      <div className={css.formWrapper}>
+        <Title title={titleForPageRegister} />
+        <p className={css.textRegister}>Thank you for your interest in our platform.</p>
+        <RegistrationForm onSubmit={handleSubmit} />
+        <p className={css.textBeforeLink}>
+          Already have an account?
+          <Link href="/login" className={css.link}>
+            {' '}
+            Login
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

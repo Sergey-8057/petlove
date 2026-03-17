@@ -1,0 +1,32 @@
+.imageWrapper {
+  width: 100%;
+  max-width: 335px;
+  margin: 0 auto;
+}
+
+.imageRegister {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+  .imageWrapper {
+    max-width: 704px;
+  }
+
+  .imageRegister {
+    border-radius: 60px;
+  }
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
+  .imageWrapper {
+    max-width: 592px;
+  }
+}

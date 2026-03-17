@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Toaster } from 'react-hot-toast';
 
 import Header from '@/components/Header/Header';
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
           {children}
           {modal}
         </main>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

@@ -1,0 +1,62 @@
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 375px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.formWrapper {
+  border-radius: 30px;
+  background-color: #fff;
+  padding: 27px 20px;
+}
+
+.textRegister {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: var(--main);
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.textBeforeLink {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.5);
+  text-align: center;
+  margin-top: 12px;
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--orange);
+}
+
+/* ======= for Tablet screen ======= */
+
+@media screen and (min-width: 768px) {
+  .mainContent {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+/* ======= for Desktop screen ======= */
+
+@media screen and (min-width: 1280px) {
+  .mainContent {
+    flex-direction: row;
+    gap: 32px;
+    max-width: 1280px;
+    padding: 0 64px;
+  }
+}
