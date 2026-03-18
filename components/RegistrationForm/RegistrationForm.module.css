@@ -127,3 +127,48 @@
 .submitButton:focus {
   background-color: #f9b020;
 }
+
+/* ======= for Tablet and Desktop screen ======= */
+
+@media screen and (min-width: 768px) {
+  .form {
+    gap: 16px;
+  }
+
+  .input {
+    font-size: 16px;
+    line-height: 125%;
+    padding: 16px;
+    height: 52px;
+  }
+
+  .inputPass {
+    font-size: 16px;
+    line-height: 125%;
+    padding: 16px 54px 16px 16px;
+    width: 100%;
+    height: 52px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
+
+  .togglePassword {
+    position: absolute;
+    top: 15px;
+    right: 16px;
+  }
+
+  .eyeIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .submitButton {
+    font-size: 16px;
+    line-height: 125%;
+    height: 52px;
+    margin-top: 16px;
+  }
+}

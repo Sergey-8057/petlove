@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 import { register, RegisterRequest } from '@/lib/api/clientApi';
@@ -10,8 +11,8 @@ import PetBlock from '@/components/PetBlock/PetBlock';
 import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
 import css from './Register.module.css';
 
-export default function Register() {
-  const titleForPageRegister = 'Registration';
+export default function RegisterPage() {
+  const titleForRegisterPage = 'Registration';
   const imageName = 'image-register';
   const altName = 'cat';
   const router = useRouter();
@@ -24,8 +25,22 @@ export default function Register() {
         router.push('/profile');
       }
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Registration failed';
-      toast.error(message);
+      if (isAxiosError(error)) {
+        const status = error.response?.status;
+
+        if (status === 409) {
+          toast.error('This email is already registered');
+          return;
+        }
+
+        const message =
+          error.response?.data?.message || error.response?.data?.error || 'Registration failed';
+
+        toast.error(message);
+        return;
+      }
+
+      toast.error('Something went wrong');
     }
   };
 
@@ -33,7 +48,7 @@ export default function Register() {
     <main className={css.mainContent}>
       <PetBlock imageName={imageName} alt={altName} />
       <div className={css.formWrapper}>
-        <Title title={titleForPageRegister} />
+        <Title title={titleForRegisterPage} />
         <p className={css.textRegister}>Thank you for your interest in our platform.</p>
         <RegistrationForm onSubmit={handleSubmit} />
         <p className={css.textBeforeLink}>

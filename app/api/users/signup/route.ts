@@ -21,12 +21,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(apiRes.data, { status: 201 });
   } catch (error) {
     if (isAxiosError(error)) {
-      return NextResponse.json(
-        { error: error.response?.data || error.message },
-        { status: error.response?.status }
-      );
+      const status = error.response?.status || 500;
+
+      const message =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        error.message ||
+        'Request failed';
+
+      return NextResponse.json({ message }, { status });
     }
 
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }

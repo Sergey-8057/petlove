@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'clsx';
 
 import { registerSchema } from '@/lib/validation/registerSchema';
 
@@ -32,11 +33,10 @@ export default function RegistrationForm({ onSubmit }: Props) {
   });
 
   const getInputClass = (field: keyof FormValues, baseClass: string) => {
-    return `
-      ${baseClass}
-      ${errors[field] ? css.errorInput : ''}
-      ${touchedFields[field] && !errors[field] ? css.successInput : ''}
-    `;
+    return clsx(baseClass, {
+      [css.errorInput]: errors[field],
+      [css.successInput]: touchedFields[field] && !errors[field],
+    });
   };
 
   const togglePasswordVisibility = () => {
