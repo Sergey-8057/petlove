@@ -5,21 +5,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 
-import { registerSchema } from '@/lib/validation/registerSchema';
-import css from './RegistrationForm.module.css';
+import { loginSchema } from '@/lib/validation/loginSchema';
+import css from './LoginForm.module.css';
 
 interface FormValues {
-  name: string;
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 interface Props {
   onSubmit: (data: FormValues) => Promise<void>;
 }
 
-export default function RegistrationForm({ onSubmit }: Props) {
+export default function LoginForm({ onSubmit }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -27,7 +25,7 @@ export default function RegistrationForm({ onSubmit }: Props) {
     handleSubmit,
     formState: { errors, touchedFields, isSubmitting },
   } = useForm<FormValues>({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(loginSchema),
     mode: 'onBlur',
   });
 
@@ -44,25 +42,6 @@ export default function RegistrationForm({ onSubmit }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
-      <div className={css.inputWrapper}>
-        <input
-          {...register('name')}
-          placeholder="Name"
-          className={getInputClass('name', css.input)}
-        />
-        {errors.name && (
-          <svg className={css.crossIcon} width="22" height="22" aria-hidden="true">
-            <use href="/symbol-defs.svg#icon-cross" />
-          </svg>
-        )}
-        {touchedFields.name && !errors.name && (
-          <svg className={css.checkIcon} width="22" height="22" aria-hidden="true">
-            <use href="/symbol-defs.svg#icon-check" />
-          </svg>
-        )}
-        {errors.name && <p className={css.error}>{errors.name.message}</p>}
-      </div>
-
       <div className={css.inputWrapper}>
         <input
           {...register('email')}
@@ -113,38 +92,8 @@ export default function RegistrationForm({ onSubmit }: Props) {
         {errors.password && <p className={css.error}>{errors.password.message}</p>}
       </div>
 
-      <div className={css.passwordWrapper}>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          {...register('confirmPassword')}
-          placeholder="Confirm password"
-          className={getInputClass('confirmPassword', css.inputPass)}
-        />
-        {errors.confirmPassword && (
-          <svg className={css.crossIcon} width="22" height="22" aria-hidden="true">
-            <use href="/symbol-defs.svg#icon-cross" />
-          </svg>
-        )}
-        {touchedFields.confirmPassword && !errors.confirmPassword && (
-          <svg className={css.checkIcon} width="22" height="22" aria-hidden="true">
-            <use href="/symbol-defs.svg#icon-check" />
-          </svg>
-        )}
-        <button
-          type="button"
-          className={css.togglePassword}
-          onClick={togglePasswordVisibility}
-          aria-label={showPassword ? 'Hide password' : 'Show password'}
-        >
-          <svg className={css.eyeIcon} width="22" height="22" aria-hidden="true">
-            <use href={`/symbol-defs.svg#icon-${showPassword ? 'eye' : 'eye-off'}`} />
-          </svg>
-        </button>
-        {errors.confirmPassword && <p className={css.error}>{errors.confirmPassword.message}</p>}
-      </div>
-
       <button type="submit" disabled={isSubmitting} className={css.submitButton}>
-        {isSubmitting ? 'Loading...' : 'Registration'}
+        {isSubmitting ? 'Loading...' : 'Log in'}
       </button>
     </form>
   );

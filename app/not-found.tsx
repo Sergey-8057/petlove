@@ -10,11 +10,11 @@ export default function NotFound() {
           <p className={css.numberFour}>4</p>
           <div className={css.imageZeroWrapper}>
             <picture>
-              <source media="(min-width: 768px)" srcSet="image-404-tabl-desk.png" />
-              <source media="(max-width: 767px)" srcSet="image-404-mob.png" />
+              <source media="(min-width: 768px)" srcSet="error_404/image-404-tabl-desk.png" />
+              <source media="(max-width: 767px)" srcSet="error_404/image-404-mob.png" />
               <img
                 className={css.imageZero}
-                src="image-404-tabl-desk.png"
+                src="error_404/image-404-tabl-desk.png"
                 alt="zero"
                 width="280"
                 height="280"

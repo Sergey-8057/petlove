@@ -11,7 +11,7 @@
 .formWrapper {
   border-radius: 30px;
   background-color: #fff;
-  padding: 27px 20px;
+  padding: 60px 20px;
 }
 
 .textRegister {
@@ -21,7 +21,7 @@
   letter-spacing: -0.02em;
   color: var(--main);
   margin-top: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .textBeforeLink {
@@ -52,7 +52,7 @@
 
   .formWrapper {
     border-radius: 60px;
-    padding: 30px 140px;
+    padding: 71px 140px;
   }
 
   .textRegister {
@@ -83,6 +83,6 @@
   .formWrapper {
     max-width: 592px;
     width: 100%;
-    padding: 77px 84px;
+    padding: 114px 84px;
   }
 }

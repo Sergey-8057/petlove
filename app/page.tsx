@@ -18,19 +18,19 @@ export default function Home() {
         <picture>
           <source
             media="(min-width: 1280px)"
-            srcSet="image-hero-desk.jpg 1x, image-hero-desk-2x.jpg 2x"
+            srcSet="hero/image-hero-desk.jpg 1x, hero/image-hero-desk-2x.jpg 2x"
           />
           <source
             media="(min-width: 768px)"
-            srcSet="image-hero-tabl.jpg 1x, image-hero-tabl-2x.jpg 2x"
+            srcSet="hero/image-hero-tabl.jpg 1x, hero/image-hero-tabl-2x.jpg 2x"
           />
           <source
             media="(max-width: 767px)"
-            srcSet="image-hero-mob.jpg 1x, image-hero-mob-2x.jpg 2x"
+            srcSet="hero/image-hero-mob.jpg 1x, hero/image-hero-mob-2x.jpg 2x"
           />
           <img
             className={css.imageHero}
-            src="image-hero-desk.jpg"
+            src="hero/image-hero-desk.jpg"
             alt="girl with a dog"
             width="1216"
           />

@@ -28,5 +28,6 @@
 @media screen and (min-width: 1280px) {
   .imageWrapper {
     max-width: 592px;
+    max-height: 654px;
   }
 }

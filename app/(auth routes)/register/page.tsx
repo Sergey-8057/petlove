@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 import { register, RegisterRequest } from '@/lib/api/clientApi';
@@ -13,7 +12,7 @@ import css from './Register.module.css';
 
 export default function RegisterPage() {
   const titleForRegisterPage = 'Registration';
-  const imageName = 'image-register';
+  const imageName = 'register/image-register';
   const altName = 'cat';
   const router = useRouter();
 
@@ -24,19 +23,9 @@ export default function RegisterPage() {
         toast.success('Registration successful 🎉');
         router.push('/profile');
       }
-    } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        const status = error.response?.status;
-
-        if (status === 409) {
-          toast.error('This email is already registered');
-          return;
-        }
-
-        const message =
-          error.response?.data?.message || error.response?.data?.error || 'Registration failed';
-
-        toast.error(message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
         return;
       }
 

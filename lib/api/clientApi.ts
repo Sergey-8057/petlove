@@ -1,5 +1,6 @@
-import { nextServer } from './api';
+import { isAxiosError } from 'axios';
 
+import { nextServer } from './api';
 import { AuthResponse, User } from '@/types/user';
 
 export type RegisterRequest = {
@@ -9,8 +10,24 @@ export type RegisterRequest = {
 };
 
 export const register = async (data: RegisterRequest) => {
-  const res = await nextServer.post<AuthResponse>('/users/signup', data);
-  return res.data;
+  try {
+    const res = await nextServer.post<AuthResponse>('/users/signup', data);
+    return res.data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status;
+
+      if (status === 409) {
+        throw new Error('This email is already registered');
+      }
+
+      const message = error.response?.data?.message || 'Registration failed';
+
+      throw new Error(message);
+    }
+
+    throw new Error('Something went wrong');
+  }
 };
 
 export type LoginRequest = {
@@ -19,10 +36,25 @@ export type LoginRequest = {
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await nextServer.post<User>('/users/signin', data);
-  return res.data;
-};
+  try {
+    const res = await nextServer.post<User>('/users/signin', data);
+    return res.data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status;
 
+      if (status === 401) {
+        throw new Error('Email or password invalid');
+      }
+
+      const message = error.response?.data?.message || 'Login failed';
+
+      throw new Error(message);
+    }
+
+    throw new Error('Something went wrong');
+  }
+};
 
 // export const getMe = async () => {
 //   const { data } = await nextServer.get<User>('/users/me');

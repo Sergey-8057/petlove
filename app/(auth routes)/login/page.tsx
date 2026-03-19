@@ -2,18 +2,17 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 import { login, LoginRequest } from '@/lib/api/clientApi';
 import Title from '@/components/Title/Title';
 import PetBlock from '@/components/PetBlock/PetBlock';
-import RegistrationForm from '@/components/RegistrationForm/RegistrationForm'; //edit
+import LoginForm from '@/components/LoginForm/LoginForm';
 import css from './Login.module.css';
 
 export default function LoginPage() {
   const titleForLoginPage = 'Log in';
-  const imageName = 'image-register'; //edit
+  const imageName = 'login/image-login';
   const altName = 'dog';
   const router = useRouter();
 
@@ -25,18 +24,8 @@ export default function LoginPage() {
         router.push('/profile');
       }
     } catch (error) {
-      if (isAxiosError(error)) {
-        const status = error.request?.status;
-
-        if (status === 401) {
-          toast.error('Email or password invalid');
-          return;
-        }
-
-        const message =
-          error.response?.data?.message || error.response?.data?.error || 'Login failed';
-
-        toast.error(message);
+      if (error instanceof Error) {
+        toast.error(error.message);
         return;
       }
 
@@ -52,7 +41,7 @@ export default function LoginPage() {
         <p className={css.textRegister}>
           Welcome! Please enter your credentials to login to the platform:
         </p>
-        <RegistrationForm onSubmit={handleSubmit} />
+        <LoginForm onSubmit={handleSubmit} />
         <p className={css.textBeforeLink}>
           Don’t have an account?
           <Link href="/register" className={css.link}>
