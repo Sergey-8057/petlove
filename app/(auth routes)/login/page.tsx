@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { login, LoginRequest } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 import Title from '@/components/Title/Title';
 import PetBlock from '@/components/PetBlock/PetBlock';
 import LoginForm from '@/components/LoginForm/LoginForm';
@@ -15,11 +16,13 @@ export default function LoginPage() {
   const imageName = 'login/image-login';
   const altName = 'dog';
   const router = useRouter();
+  const setUser = useAuthStore(state => state.setUser);
 
   const handleSubmit = async (data: LoginRequest) => {
     try {
       const res = await login(data);
       if (res) {
+        setUser(res);
         toast.success('Login successful 🎉');
         router.push('/profile');
       }

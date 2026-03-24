@@ -29,6 +29,7 @@ export default function NewsList({ news }: Props) {
                   alt={item.title}
                   width={361}
                   height={226}
+                  loading="eager"
                   className={css.image}
                 />
               </div>

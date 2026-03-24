@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { register, RegisterRequest } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 import Title from '@/components/Title/Title';
 import PetBlock from '@/components/PetBlock/PetBlock';
 import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
@@ -15,11 +16,13 @@ export default function RegisterPage() {
   const imageName = 'register/image-register';
   const altName = 'cat';
   const router = useRouter();
+  const setUser = useAuthStore(state => state.setUser);
 
   const handleSubmit = async (data: RegisterRequest) => {
     try {
       const res = await register(data);
       if (res) {
+        setUser(res);
         toast.success('Registration successful 🎉');
         router.push('/profile');
       }

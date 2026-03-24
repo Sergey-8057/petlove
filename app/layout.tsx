@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { Toaster } from 'react-hot-toast';
+// import { Suspense } from 'react';
 
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import Header from '@/components/Header/Header';
 import "./globals.css";
 
@@ -29,11 +32,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable}`}>
-        <Header />
-        <main>
-          {children}
-          {modal}
-        </main>
+        <TanStackProvider>
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              {modal}
+            </main>
+          </AuthProvider>
+        </TanStackProvider>
         <Toaster position="top-right" />
       </body>
     </html>

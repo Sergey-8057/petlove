@@ -66,6 +66,7 @@ export default function LoginForm({ onSubmit }: Props) {
         <input
           type={showPassword ? 'text' : 'password'}
           {...register('password')}
+          autoComplete="current-password"
           placeholder="Password"
           className={getInputClass('password', css.inputPass)}
         />

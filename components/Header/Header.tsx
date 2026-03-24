@@ -3,15 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
+import { useAuthStore } from '@/lib/store/authStore';
+import { logout } from '@/lib/api/clientApi';
 import css from './Header.module.css';
 
 export default function Header() {
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
-
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === '/';
+  const { isAuthenticated, user, isAuthChecked } = useAuthStore();
+
+  const clearIsAuthenticated = useAuthStore(state => state.clearIsAuthenticated);
 
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
@@ -19,6 +24,12 @@ export default function Header() {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    clearIsAuthenticated();
+    router.push('/login');
   };
 
   useEffect(() => {
@@ -105,40 +116,69 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-
-          {/* Auth */}
-          <div className={css.listAuth}>
-            <Link
-              href="/login"
-              className={clsx(css.linkLogin, {
-                [css.linkLoginOther]: !isHomePage,
-              })}
-            >
-              Log In
-            </Link>
-            <Link href="/register" className={css.linkRegistr}>
-              Registration
-            </Link>
-          </div>
         </nav>
 
-        <button
-          type="button"
-          onClick={toggleMenu}
-          className={css.menuButton}
-          aria-label="Open menu"
-        >
-          <svg
-            className={clsx(css.iconMenu, {
-              [css.iconMenuHome]: isHomePage,
-              [css.iconMenuOther]: !isHomePage,
-            })}
-            width="32"
-            height="32"
+        <div className={css.contAuthAndMenuBtn}>
+          {/* Auth */}
+          {!isAuthChecked ? null : isAuthenticated ? (
+            <div className={css.contInfoUser}>
+              <button
+                className={clsx(css.logoutBtm, {
+                  [css.logoutBtmOther]: !isHomePage,
+                })}
+                onClick={handleLogout}
+              >
+                Log out
+              </button>
+              <Link href="/profile" className={css.linkIconAndName}>
+                <div className={css.iconUserWrapper}>
+                  <svg className={css.iconUser} width="24" height="24">
+                    <use href="/symbol-defs.svg#icon-user" />
+                  </svg>
+                </div>
+                <p
+                  className={clsx(css.userName, {
+                    [css.userNameOther]: !isHomePage,
+                  })}
+                >
+                  {user?.name}
+                </p>
+              </Link>
+            </div>
+          ) : (
+            <div className={css.listAuth}>
+              <Link
+                href="/login"
+                className={clsx(css.linkLogin, {
+                  [css.linkLoginOther]: !isHomePage,
+                })}
+              >
+                Log In
+              </Link>
+              <Link href="/register" className={css.linkRegistr}>
+                Registration
+              </Link>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={toggleMenu}
+            className={css.menuButton}
+            aria-label="Open menu"
           >
-            <use href="/symbol-defs.svg#icon-menu" />
-          </svg>
-        </button>
+            <svg
+              className={clsx(css.iconMenu, {
+                [css.iconMenuHome]: isHomePage,
+                [css.iconMenuOther]: !isHomePage,
+              })}
+              width="32"
+              height="32"
+            >
+              <use href="/symbol-defs.svg#icon-menu" />
+            </svg>
+          </button>
+        </div>
       </header>
 
       {/* Overlay */}
@@ -206,22 +246,33 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-          <ul className={css.mobileAuth}>
-            <li
-              className={clsx(css.mobileAuthLogin, {
-                [css.mobileAuthLoginOther]: !isHomePage,
+          {!isAuthChecked ? null : isAuthenticated ? (
+            <button
+              className={clsx(css.mobileAuthLogout, {
+                [css.mobileAuthLogoutOther]: !isHomePage,
               })}
+              onClick={handleLogout}
             >
-              <Link href="/login" onClick={toggleMenu}>
-                Log In
-              </Link>
-            </li>
-            <li className={css.mobileAuthRegistr}>
-              <Link href="/register" onClick={toggleMenu}>
-                Registration
-              </Link>
-            </li>
-          </ul>
+              Logout
+            </button>
+          ) : (
+            <ul className={css.mobileAuth}>
+              <li
+                className={clsx(css.mobileAuthLogin, {
+                  [css.mobileAuthLoginOther]: !isHomePage,
+                })}
+              >
+                <Link href="/login" onClick={toggleMenu}>
+                  Log In
+                </Link>
+              </li>
+              <li className={css.mobileAuthRegistr}>
+                <Link href="/register" onClick={toggleMenu}>
+                  Registration
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </section>

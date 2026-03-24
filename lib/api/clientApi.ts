@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 
 import { nextServer } from './api';
-import { AuthResponse, User } from '@/types/user';
+import { User, AuthResponse, UserInfo } from '@/types/user';
 
 export type RegisterRequest = {
   name: string;
@@ -21,7 +21,8 @@ export const register = async (data: RegisterRequest) => {
         throw new Error('This email is already registered');
       }
 
-      const message = error.response?.data?.message || 'Registration failed';
+      const message =
+        error.response?.data?.message || error.response?.data?.error || 'Registration failed';
 
       throw new Error(message);
     }
@@ -47,7 +48,8 @@ export const login = async (data: LoginRequest) => {
         throw new Error('Email or password invalid');
       }
 
-      const message = error.response?.data?.message || 'Login failed';
+      const message =
+        error.response?.data?.message || error.response?.data?.error || 'Login failed';
 
       throw new Error(message);
     }
@@ -56,14 +58,36 @@ export const login = async (data: LoginRequest) => {
   }
 };
 
-// export const getMe = async () => {
-//   const { data } = await nextServer.get<User>('/users/me');
-//   return data;
-// };
+export const getMe = async () => {
+  try {
+    const { data } = await nextServer.get<UserInfo>('/users/current');
+    return data;
+  } catch (error) {
+    // Если ошибка 401, возвращаем null (пользователь не авторизован)
+    if (isAxiosError(error) && error.response?.status === 401) {
+      return null;
+    }
+    // Для других ошибок логируем и возвращаем null
+    console.error('Failed to fetch user:', error);
+    return null;
+  }
+};
 
-// export const logout = async (): Promise<void> => {
-//   await nextServer.post('/auth/logout');
-// };
+export const logout = async (): Promise<void> => {
+  try {
+    // Отправляем запрос на выход
+    await nextServer.post('/users/signout');
+  } catch (error) {
+    // Даже если запрос не удался, не выбрасываем ошибку
+    // Пользователь все равно должен быть разлогинен локально
+    console.error('Logout request failed:', error);
+
+    // Если ошибка не 401, все равно продолжаем
+    if (isAxiosError(error) && error.response?.status !== 401) {
+      console.warn('Logout completed with warnings');
+    }
+  }
+};
 
 // export type UpdateUserRequest = {
 //   username: string;

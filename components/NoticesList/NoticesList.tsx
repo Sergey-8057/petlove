@@ -28,6 +28,7 @@ export default function NoticesList({ notices }: Props) {
                 alt={item.title}
                 width={315}
                 height={178}
+                loading="eager"
                 className={css.image}
               />
             </div>

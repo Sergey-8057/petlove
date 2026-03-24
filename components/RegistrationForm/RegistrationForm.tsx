@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 
+import { RegisterRequest } from '@/lib/api/clientApi';
 import { registerSchema } from '@/lib/validation/registerSchema';
 import css from './RegistrationForm.module.css';
 
@@ -16,7 +17,7 @@ interface FormValues {
 }
 
 interface Props {
-  onSubmit: (data: FormValues) => Promise<void>;
+  onSubmit: (data: RegisterRequest) => Promise<void>;
 }
 
 export default function RegistrationForm({ onSubmit }: Props) {
@@ -42,8 +43,18 @@ export default function RegistrationForm({ onSubmit }: Props) {
     setShowPassword(prev => !prev);
   };
 
+  const onFormSubmit = async (data: FormValues) => {
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    await onSubmit(payload);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+    <form onSubmit={handleSubmit(onFormSubmit)} className={css.form}>
       <div className={css.inputWrapper}>
         <input
           {...register('name')}
@@ -87,6 +98,7 @@ export default function RegistrationForm({ onSubmit }: Props) {
         <input
           type={showPassword ? 'text' : 'password'}
           {...register('password')}
+          autoComplete="new-password"
           placeholder="Password"
           className={getInputClass('password', css.inputPass)}
         />
@@ -117,6 +129,7 @@ export default function RegistrationForm({ onSubmit }: Props) {
         <input
           type={showPassword ? 'text' : 'password'}
           {...register('confirmPassword')}
+          autoComplete="new-password"
           placeholder="Confirm password"
           className={getInputClass('confirmPassword', css.inputPass)}
         />
