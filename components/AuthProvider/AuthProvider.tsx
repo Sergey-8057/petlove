@@ -1,4 +1,3 @@
-// components/AuthProvider/AuthProvider.tsx
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -8,39 +7,36 @@ import { getMe } from '@/lib/api/clientApi';
 
 type Props = {
   children: React.ReactNode;
+  hasToken: boolean;
 };
 
-// Функция для проверки наличия токена
-// const hasToken = (): boolean => {
-//   if (typeof document === 'undefined') return false;
-//   return document.cookie.split(';').some(cookie => cookie.trim().startsWith('accessToken='));
-// };
-
-export default function AuthProvider({ children }: Props) {
+export default function AuthProvider({ children, hasToken }: Props) {
   const setUser = useAuthStore(state => state.setUser);
-  const clearIsAuthenticated = useAuthStore(state => state.clearIsAuthenticated);
-  const setAuthChecked = useAuthStore(state => state.setAuthChecked);
+  const clearAuth = useAuthStore(state => state.clearAuth);
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['user'],
     queryFn: getMe,
-    enabled: true,
+    enabled: hasToken,
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
+    if (!hasToken) {
+      clearAuth();
+      return;
+    }
+
     if (isLoading) return;
 
     if (user) {
       setUser(user);
     } else {
-      clearIsAuthenticated();
+      clearAuth();
     }
+  }, [user, isLoading, hasToken, setUser, clearAuth]);
 
-    setAuthChecked(); // 👈 важно
-  }, [user, isLoading, setUser, clearIsAuthenticated, setAuthChecked]);
-
-  return children;
+  return <>{children}</>;
 }

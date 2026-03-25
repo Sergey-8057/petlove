@@ -16,17 +16,13 @@ export const register = async (data: RegisterRequest) => {
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       const status = error.response?.status;
-
       if (status === 409) {
         throw new Error('This email is already registered');
       }
-
       const message =
         error.response?.data?.message || error.response?.data?.error || 'Registration failed';
-
       throw new Error(message);
     }
-
     throw new Error('Something went wrong');
   }
 };
@@ -43,17 +39,13 @@ export const login = async (data: LoginRequest) => {
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       const status = error.response?.status;
-
       if (status === 401) {
         throw new Error('Email or password invalid');
       }
-
       const message =
         error.response?.data?.message || error.response?.data?.error || 'Login failed';
-
       throw new Error(message);
     }
-
     throw new Error('Something went wrong');
   }
 };
@@ -63,11 +55,9 @@ export const getMe = async () => {
     const { data } = await nextServer.get<UserInfo>('/users/current');
     return data;
   } catch (error) {
-    // Если ошибка 401, возвращаем null (пользователь не авторизован)
     if (isAxiosError(error) && error.response?.status === 401) {
       return null;
     }
-    // Для других ошибок логируем и возвращаем null
     console.error('Failed to fetch user:', error);
     return null;
   }
@@ -75,14 +65,9 @@ export const getMe = async () => {
 
 export const logout = async (): Promise<void> => {
   try {
-    // Отправляем запрос на выход
     await nextServer.post('/users/signout');
   } catch (error) {
-    // Даже если запрос не удался, не выбрасываем ошибку
-    // Пользователь все равно должен быть разлогинен локально
     console.error('Logout request failed:', error);
-
-    // Если ошибка не 401, все равно продолжаем
     if (isAxiosError(error) && error.response?.status !== 401) {
       console.warn('Logout completed with warnings');
     }

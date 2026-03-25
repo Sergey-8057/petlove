@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
+import { useIsFetching } from '@tanstack/react-query';
 
 import { useAuthStore } from '@/lib/store/authStore';
 import { logout } from '@/lib/api/clientApi';
@@ -11,13 +12,15 @@ import css from './Header.module.css';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
   const pathname = usePathname();
   const router = useRouter();
   const isHomePage = pathname === '/';
-  const { isAuthenticated, user, isAuthChecked } = useAuthStore();
 
-  const clearIsAuthenticated = useAuthStore(state => state.clearIsAuthenticated);
-
+  const { isAuthenticated, user } = useAuthStore();
+  const clearAuth = useAuthStore(state => state.clearAuth);
+  const isFetching = useIsFetching({ queryKey: ['user'] }) > 0;
+  
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
   };
@@ -28,7 +31,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     await logout();
-    clearIsAuthenticated();
+    clearAuth();
     router.push('/login');
   };
 
@@ -120,7 +123,7 @@ export default function Header() {
 
         <div className={css.contAuthAndMenuBtn}>
           {/* Auth */}
-          {!isAuthChecked ? null : isAuthenticated ? (
+          {isFetching ? null : isAuthenticated ? (
             <div className={css.contInfoUser}>
               <button
                 className={clsx(css.logoutBtm, {
@@ -246,7 +249,7 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-          {!isAuthChecked ? null : isAuthenticated ? (
+          {isFetching ? null : isAuthenticated ? (
             <button
               className={clsx(css.mobileAuthLogout, {
                 [css.mobileAuthLogoutOther]: !isHomePage,

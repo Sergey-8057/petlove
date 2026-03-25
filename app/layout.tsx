@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { Toaster } from 'react-hot-toast';
-// import { Suspense } from 'react';
+import { cookies } from 'next/headers';
 
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
@@ -22,18 +22,21 @@ export const metadata: Metadata = {
   description: 'Pet search platform',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const hasToken = !!cookieStore.get('accessToken');
+  
   return (
     <html lang="en">
       <body className={`${manrope.variable}`}>
         <TanStackProvider>
-          <AuthProvider>
+          <AuthProvider hasToken={hasToken}>
             <Header />
             <main>
               {children}
