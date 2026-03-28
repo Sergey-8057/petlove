@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect } from 'react';
+
 import css from './ModalApproveAction.module.css';
 
 type Props = {
@@ -30,6 +32,15 @@ export default function ModalApproveAction({ onClose, onConfirm }: Props) {
             <use href="/symbol-defs.svg#icon-close" />
           </svg>
         </button>
+        <div className={css.imageWrapper}>
+          <Image
+            src='/logout/image-logout.png'
+            alt='image loguot'
+            width='80'
+            height='80'
+            className={css.imageLogout}
+          />
+        </div>
         <p className={css.text}>Already leaving?</p>
         <div className={css.actions}>
           <button className={css.confirm} onClick={onConfirm}>

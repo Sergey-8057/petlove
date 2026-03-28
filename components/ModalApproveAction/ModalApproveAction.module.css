@@ -19,3 +19,122 @@
   max-width: 335px;
   width: 100%;
 }
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.iconClose {
+  width: 24px;
+  height: 24px;
+  fill: var(--main);
+}
+
+.imageWrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+}
+
+.imageLogout {
+  object-fit: cover;
+}
+
+.text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: var(--main);
+  margin-bottom: 28px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #fff;
+  border-radius: 30px;
+  max-width: 137px;
+  width: 100%;
+  height: 42px;
+  background-color: var(--orange);
+  border-color: transparent;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+}
+
+.confirm:hover,
+.confirm:focus {
+  background-color: #f9b020;
+}
+
+.cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: var(--main);
+  border-radius: 30px;
+  max-width: 134px;
+  width: 100%;
+  height: 42px;
+  background-color: rgba(38, 38, 38, 0.05);
+  border-color: transparent;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+}
+
+.cancel:hover,
+.confcancelirm:focus {
+  background-color: rgba(38, 38, 38, 0.1);
+}
+
+/* ======= for Tablet and Desktop screen ======= */
+
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 80px;
+    max-width: 448px;
+  }
+
+  .text {
+    font-size: 24px;
+    line-height: 117%;
+    color: var(--main);
+  }
+
+  .confirm {
+    font-size: 16px;
+    line-height: 125%;
+    letter-spacing: -0.03em;
+    max-width: 140px;
+    height: 48px;
+  }
+
+  .cancel {
+    font-size: 16px;
+    line-height: 125%;
+    letter-spacing: -0.03em;
+    max-width: 140px;
+    height: 48px;
+  }
+}
